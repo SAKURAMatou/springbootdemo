@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="warn" monitorInterval="5">
+    <!--Configuration：为根节点，有status和monitorInterval等多个属性-->
+    <!--status的值有 “trace”, “debug”, “info”, “warn”, “error” and “fatal”-->
+    <!--monitorInterval，含义是每隔多少秒重新读取配置文件，可以不重启应用的情况下修改配置-->
+    <properties>
+        <property name="LOG_HOME">E:/logs</property>
+    </properties>
+
+    <!--输出源，用于定义日志输出的地方-->
+    <Appenders>
+        <!--Console控制台输出源将日志打印到控制台上-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%l --- %m%n"/>
+        </Console>
+
+        <!--File：文件输出源，用于将日志写入到指定的文件，需要配置输入到哪个位置-->
+        <!--<File name="file" fileName="${LOG_HOME}/myfile.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n"/>
+        </File>-->
+
+        <!--写入到文件输出源，可以指定重新写文件的的阈值大小；需要配置文件命名规则-->
+        <!--fileName 指定当前日志文件的位置和文件名称-->
+        <!--filePattern 指定当发生Rolling时，文件的转移和重命名规则-->
+        <!--<RollingFile name="rollingFile" fileName="${LOG_HOME}/myrollog.log"
+                     filePattern="E:/logs/$${date:yyyy-MM-dd}/myrollog-%d{yyyy-MM-dd-HH-mm}-%i.log">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %msg%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                &lt;!&ndash;SizeBasedTriggeringPolicy 指定当文件体积大于size指定的值时，触发Rolling&ndash;&gt;
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            &lt;!&ndash;DefaultRolloverStrategy 指定最多保存的文件个数&ndash;&gt;
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>-->
+
+        <!--<RandomAccessFile name="accessFile" fileName="${LOG_HOME}/myAcclog.log">
+
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n"/>
+
+        </RandomAccessFile>-->
+
+        <!--PatternLayout：控制台或文件输出源Console、File、RollingRandomAccessFile 都必须包含一个PatternLayout节点，
+        用于指定输出文件的格式-->
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.dl.mybatis" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</configuration>
